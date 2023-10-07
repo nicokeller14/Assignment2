@@ -1,45 +1,58 @@
 package com.example.searchengine;
 
 import com.opencsv.CSVWriter;
-
-import java.io.*;
-import java.util.*;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class SimpleCrawler extends Crawler {
-
-
     protected SimpleCrawler(String indexFileName) {
         super(indexFileName);
     }
 
-    public void crawl(String startUrl){
+    public void crawl(String startUrl) {
         try {
-            int duration = 0; //TODO: update the value in the code
+            long startTime = System.currentTimeMillis();
             Set<String[]> lines = explore(startUrl, new HashSet<>(), new HashSet<>());
             FileWriter fileWriter = new FileWriter(indexFileName);
-            CSVWriter writer = new CSVWriter(fileWriter,',', CSVWriter.NO_QUOTE_CHARACTER,' ',"\r\n");
+            CSVWriter writer = new CSVWriter(fileWriter, ',', CSVWriter.NO_QUOTE_CHARACTER, CSVWriter.NO_ESCAPE_CHARACTER, "\r\n");
             for (String[] line : lines) {
                 writer.writeNext(line);
             }
-            System.out.println("duration simple crawler: "+duration);
-        } catch (Exception e){
+            writer.close();
+            long duration = System.currentTimeMillis() - startTime;
+            System.out.println("duration simple crawler: " + duration);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
-    /**
-     *
-     * @param startUrl the url where the crawling operation starts
-     * @param lines stores the lines to print on the index file
-     * @param visited stores the urls that the program has already visited
-     * @return the set of lines to print on the index file
-     */
-    public Set<String[]> explore(String startUrl, Set<String[]> lines, Set<String> visited){
-        //TODO: complete the exploration program.
+    public Set<String[]> explore(String startUrl, Set<String[]> lines, Set<String> visited) {
+        if (visited.contains(startUrl)) {
+            return lines;
+        }
+
+        visited.add(startUrl);
+        List<List<String>> info = getInfo(startUrl);
+        List<String> words = info.get(0);
+        List<String> hyperlinks = info.get(1);
+
+        String[] row = new String[4];
+        row[0] = "/" + startUrl.substring(startUrl.lastIndexOf("/") + 1)+ " "; // Get the shortened link of the site
+
+        for (int i = 0; i < Math.min(words.size(), 3); i++) {
+            row[i + 1] = " " + words.get(i)+ " ";  // Get the 3 words
+        }
+        lines.add(row);
+
+        for (String hyperlink : hyperlinks) {
+            explore(hyperlink, lines, visited);
+        }
         return lines;
-
-
     }
-
 }
