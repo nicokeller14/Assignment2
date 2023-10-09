@@ -44,7 +44,6 @@ public abstract class Crawler {
             for (int i = 0; i < Math.min(allWords.length, 3); i++) {
                 words.add(allWords[i]);
             }
-
             Elements hyperlinkElements = doc.select("a[href]");
             for (Element hyperlinkElement : hyperlinkElements) {
                 hyperlinks.add(baseUrl + hyperlinkElement.attr("href"));

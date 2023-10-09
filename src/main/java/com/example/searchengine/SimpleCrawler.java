@@ -20,7 +20,7 @@ public class SimpleCrawler extends Crawler {
             long startTime = System.currentTimeMillis();
             Set<String[]> lines = explore(startUrl, new HashSet<>(), new HashSet<>());
             FileWriter fileWriter = new FileWriter(indexFileName);
-            CSVWriter writer = new CSVWriter(fileWriter, ',', CSVWriter.NO_QUOTE_CHARACTER, CSVWriter.NO_ESCAPE_CHARACTER, "\r\n");
+            CSVWriter writer = new CSVWriter(fileWriter, ',', CSVWriter.NO_QUOTE_CHARACTER, CSVWriter.NO_ESCAPE_CHARACTER, "\r");
             for (String[] line : lines) {
                 writer.writeNext(line);
             }
@@ -43,10 +43,10 @@ public class SimpleCrawler extends Crawler {
         List<String> hyperlinks = info.get(1);
 
         String[] row = new String[4];
-        row[0] = "/" + startUrl.substring(startUrl.lastIndexOf("/") + 1)+ " "; // Get the shortened link of the site
+        row[0] = startUrl.substring(startUrl.lastIndexOf("/")); // Get the shortened link of the site
 
         for (int i = 0; i < Math.min(words.size(), 3); i++) {
-            row[i + 1] = " " + words.get(i)+ " ";  // Get the 3 words
+            row[i + 1] = words.get(i);  // Get the 3 words
         }
         lines.add(row);
 
