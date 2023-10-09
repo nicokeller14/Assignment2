@@ -26,7 +26,7 @@ public class SimpleCrawler extends Crawler {
             }
             writer.close();
             long duration = System.currentTimeMillis() - startTime;
-            System.out.println("duration simple crawler: " + duration);
+            System.out.println("Duration simple crawler: " + duration/1000 + " seconds");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -54,5 +54,11 @@ public class SimpleCrawler extends Crawler {
             explore(hyperlink, lines, visited);
         }
         return lines;
+    }
+
+
+    public static void main(String[] args){
+        SimpleCrawler simpleCrawler = new SimpleCrawler("./src/main/resources/index.csv");
+        simpleCrawler.crawl("https://api.interactions.ics.unisg.ch/hypermedia-environment/cc2247b79ac48af0");
     }
 }

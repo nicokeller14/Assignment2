@@ -46,8 +46,14 @@ public abstract class Crawler {
             }
             Elements hyperlinkElements = doc.select("a[href]");
             for (Element hyperlinkElement : hyperlinkElements) {
-                hyperlinks.add(baseUrl + hyperlinkElement.attr("href"));
+                String link = hyperlinkElement.attr("href");
+                if (!link.startsWith("http://") && !link.startsWith("https://")) {
+                    link = baseUrl + link;
+                }
+                hyperlinks.add(link);
             }
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
