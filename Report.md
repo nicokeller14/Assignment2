@@ -11,7 +11,8 @@ Assignment 1
 
 1. Indicate the time necessary for the SimpleCrawler to work.
 
-Ans:
+Ans: Our SimpleCrawler took 59seconds in the last testing. I varied between
+59 seconds and 1m 2seconds overall.
 
 
 
@@ -19,7 +20,9 @@ Ans:
 
 1. Is the flipped index smaller or larger than the initial index? What does this depend on?
 
-Ans:
+Ans: The flipped index was actually larger than the initial index. This is due to the fact that,
+there are more words than links to the webpage. Every webpage contained three words, and even though
+some words got repeated, there are still more words than websites.
 
 # Task 3
 
