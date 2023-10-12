@@ -30,10 +30,11 @@ function lucky() {
     const searchTerm = document.getElementById('searchTerm').value;
     fetch(`/lucky?q=${searchTerm}`)
     .then(response => response.json())
-    .then(data => {
-        window.location.href = data[0];  // assuming the /lucky endpoint returns an array, but takes only the first URL
+    .then(url => {
+        window.location.href = url;  // directly use the returned URL
     });
 }
+
 </script>
 
 </body>
