@@ -55,6 +55,47 @@
               "schema":
                 "$ref": '#/components/schemas/Url'
 
+
+  "/admin/crawl":
+    "post":
+      "summary": "Launch a new crawl"
+      "responses":
+        200:
+          "description": "Crawling launched successfully"
+    "/admin/regenerate":
+      "post":
+        "summary": "Regenerate the flipped index"
+        "responses":
+          200:
+            "description": "Flipped index regenerated successfully"
+    "/admin/deleteUrl":
+      "post":
+        "summary": "Delete a URL from the index"
+        "parameters":
+          - "in": "body"
+            "name": "url"
+            "schema":
+              "type": "string"
+              "description": "URL to be deleted"
+        "responses":
+          200:
+            "description": "URL deleted successfully"
+    "/admin/updateUrl":
+      "post":
+        "summary": "Update or add information for a given URL"
+        "parameters":
+          - "in": "body"
+            "name": "url"
+            "schema":
+              "type": "string"
+              "description": "The URL to update"
+        "responses":
+          200:
+            "description": "URL information updated or added"
+
+
+
+
 "components":
   "schemas":
     "MainPage":
