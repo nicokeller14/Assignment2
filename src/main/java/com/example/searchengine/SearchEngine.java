@@ -5,21 +5,26 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 
 @RestController
@@ -74,16 +79,15 @@ public class SearchEngine {
 	@GetMapping("/")
 	public ResponseEntity<String> mainPage() {
 		// Assuming you have an HTML file under resources/static/index.html
-		Resource resource = (Resource) new ClassPathResource("static/index.html");
-		try {
-			String content = new String(Files.readAllBytes(Path.of("static/index.html")));
+		Resource resource = new ClassPathResource("static/index.html");
+		try (Reader reader = new InputStreamReader(resource.getInputStream(), UTF_8)) {
+			String content = FileCopyUtils.copyToString(reader);
 			return ResponseEntity.ok(content);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error loading page");
 		}
+
 	}
-
-
 
 }

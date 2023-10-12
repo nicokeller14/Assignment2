@@ -29,7 +29,7 @@ function search() {
 function lucky() {
     const searchTerm = document.getElementById('searchTerm').value;
     fetch(`/lucky?q=${searchTerm}`)
-    .then(response => response.json())
+    .then(response => response.text())
     .then(url => {
         window.location.href = url;  // directly use the returned URL
     });
