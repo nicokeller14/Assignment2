@@ -2,6 +2,8 @@ Assignment 1
 ------------
 
 # Team Members
+Nico Keller
+Teo Field-Marsham
 
 # GitHub link to your (forked) repository
 
@@ -28,7 +30,13 @@ some words got repeated, there are still more words than websites.
 
 1. Explain your design choices for the API design.
 
-Ans:
+Ans: We designed the API based off of the specifications given to us for administrative control of the program and general maintenance. 
+We implemented the four key admin features: (/admin/crawl, /admin/regenerate, /admin/deleteUrl and /admin/updateUrl).  
+These features clearly describe their purpose, ensure the secure execution of potentially impactful operations (the admin prefix for each command means someone is unlikely to accidentally use them), and allow admins to 
+easily maintain the system's health and accuracy.
+
+ADDITIONAL INFO FOR TASK 3: The code runs either when connecting via "127.0.0.1" or when connecting to "localhost:80".
+
 
 # Task 4
 

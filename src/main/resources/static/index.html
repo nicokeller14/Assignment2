@@ -16,6 +16,9 @@
 <div id="results"></div>
 
 <script>
+
+<!--INFO FOR TASK 3: The code runs either when connecting via "127.0.0.1" or when connecting to "localhost:80".-->
+
 function search() {
     const searchTerm = document.getElementById('searchTerm').value;
     fetch(`/search?q=${searchTerm}`)
