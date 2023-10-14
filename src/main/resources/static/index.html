@@ -2,43 +2,115 @@
 <html>
 <head>
     <title>Hypermedia Environment</title>
+    <style>
+        /* Universal styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #460004;
+            font-family: Calibri, sans-serif;
+            color: white;
+        }
+
+        /* Container styles */
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        /* Form styles */
+        #form_id {
+            margin-bottom: 20px;
+        }
+
+        input[type=text] {
+            padding: 10px;
+            margin-right: 10px; /* space between input and buttons */
+            border: none;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #FF6100; /* green */
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #FF8900;
+        }
+
+        /* Results styles */
+        #results {
+            max-width: 60%; /* prevent wide links from overflowing */
+            word-wrap: break-word; /* breaks long URLs */
+        }
+
+        #results a {
+            color: #FFC300; /* golden links for better visibility */
+            text-decoration: none;
+        }
+
+        #results a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
 
-<h2>Search Engine</h2>
+<div class="container">
+    <h2>Search Engine</h2>
 
-<form id="form_id" action="/search" method="get">
-    <input type="text" id="searchTerm" name="q">
-    <button type="button" onclick="search()">Search</button>
-    <button type="button" onclick="lucky()">I'm Feeling Lucky</button>
-</form>
+    <form id="form_id" action="/search" method="get">
+        <input type="text" id="searchTerm" name="q" placeholder="Enter search term...">
+        <button type="button" onclick="search()">Search</button>
+        <button type="button" onclick="lucky()">I'm Feeling Lucky</button>
+    </form>
 
-<div id="results"></div>
+    <div id="results"></div>
+</div>
 
 <script>
 
-<!--INFO FOR TASK 3: The code runs either when connecting via "127.0.0.1" or when connecting to "localhost:80".-->
+    <!--INFO FOR TASK 3: The code runs either when connecting via "127.0.0.1" or when connecting to "localhost:80".-->
+    function search() {
+        const searchTerm = document.getElementById('searchTerm').value;
+        fetch(`/search?q=${searchTerm}`)
+            .then(response => response.json())
+            .then(data => {
+                const resultsDiv = document.getElementById('results');
+                resultsDiv.innerHTML = data.map(url => `<a href="${url}">${url}</a><br>`).join('');
+            });
+    }
 
-function search() {
-    const searchTerm = document.getElementById('searchTerm').value;
-    fetch(`/search?q=${searchTerm}`)
-    .then(response => response.json())
-    .then(data => {
-        const resultsDiv = document.getElementById('results');
-        resultsDiv.innerHTML = data.map(url => `<a href="${url}">${url}</a><br>`).join('');
-    });
-}
-
-function lucky() {
-    const searchTerm = document.getElementById('searchTerm').value;
-    fetch(`/lucky?q=${searchTerm}`)
-    .then(response => response.text())
-    .then(url => {
-        window.location.href = url;  // directly use the returned URL
-    });
-}
+    function lucky() {
+        const searchTerm = document.getElementById('searchTerm').value;
+        fetch(`/lucky?q=${searchTerm}`)
+            .then(response => response.text())
+            .then(url => {
+                window.location.href = url;
+            });
+    }
 
 </script>
 
 </body>
 </html>
+
