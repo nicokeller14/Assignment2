@@ -42,10 +42,12 @@ ADDITIONAL INFO FOR TASK 3: The code runs either when connecting via "127.0.0.1"
 
 1.  Indicate the time necessary for the MultithreadCrawler to work.
 
-Ans:
+Ans: Multithreaded takes 8 seconds on Teo's PC.
+
+SimpleCrawler takes 44 seconds on Teo's PC.
 
 3. Indicate the ratio of the time for the SimpleCrawler divided by the time for the MultithreadedCrawler to get the increase in speed.
 
-Ans:
+Ans: 44/8 = 5.5
 
 
