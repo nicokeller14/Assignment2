@@ -9,7 +9,7 @@
       "summary": "Get main page"
       "responses":
         200:
-          "description": "Successful reponse"
+          "description": "Successful response"
           "content":
             "text/html":
               "schema":
@@ -72,17 +72,17 @@
       "responses":
         200:
           "description": "Crawling launched successfully"
-    "/admin/regenerate":
+  "/admin/regenerate":
       "post":
         "summary": "Regenerate the flipped index"
         "responses":
           200:
             "description": "Flipped index regenerated successfully"
-    "/admin/deleteUrl":
+  "/admin/deleteUrl":
       "post":
         "summary": "Delete a URL from the index"
         "parameters":
-          - "in": "body"
+          - "in": "path"
             "name": "url"
             "schema":
               "type": "string"
@@ -90,11 +90,11 @@
         "responses":
           200:
             "description": "URL deleted successfully"
-    "/admin/updateUrl":
+  "/admin/updateUrl":
       "post":
         "summary": "Update or add information for a given URL"
         "parameters":
-          - "in": "body"
+          - "in": "path"
             "name": "url"
             "schema":
               "type": "string"
