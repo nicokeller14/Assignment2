@@ -3,7 +3,7 @@
 <head>
     <title>Hypermedia Environment</title>
     <style>
-        /* Universal styles */
+
         * {
             margin: 0;
             padding: 0;
@@ -16,7 +16,7 @@
             color: white;
         }
 
-        /* Container styles */
+
         .container {
             display: flex;
             flex-direction: column;
@@ -31,14 +31,14 @@
             font-size: 2em;
         }
 
-        /* Form styles */
+
         #form_id {
             margin-bottom: 20px;
         }
 
         input[type=text] {
             padding: 10px;
-            margin-right: 10px; /* space between input and buttons */
+            margin-right: 10px;
             border: none;
             border-radius: 5px;
         }
@@ -47,7 +47,7 @@
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
-            background-color: #FF6100; /* green */
+            background-color: #FF6100;
             color: white;
             cursor: pointer;
             transition: background-color 0.3s;
@@ -57,14 +57,14 @@
             background-color: #FF8900;
         }
 
-        /* Results styles */
+
         #results {
-            max-width: 60%; /* prevent wide links from overflowing */
-            word-wrap: break-word; /* breaks long URLs */
+            max-width: 60%;
+            word-wrap: break-word;
         }
 
         #results a {
-            color: #FFC300; /* golden links for better visibility */
+            color: #FFC300;
             text-decoration: none;
         }
 
@@ -76,7 +76,7 @@
 <body>
 
 <div class="container">
-    <h2>Search Engine</h2>
+    <h2>Doodle</h2>
 
     <form id="form_id" action="/search" method="get">
         <input type="text" id="searchTerm" name="q" placeholder="Enter search term...">
