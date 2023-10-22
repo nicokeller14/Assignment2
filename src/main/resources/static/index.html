@@ -114,7 +114,7 @@
 
         fetch(`/lucky?q=${searchTerm}`, { headers })
             .then(response => {
-                if (response.ok) { // for 200 OK status
+                if (response.ok) { // http 200 response
 
                     return response.text(); // we expect a JSON response here, according to the API documentation
                 } else if (response.status === 302) { // for 302 Redirect status
@@ -122,11 +122,11 @@
                     // If the response is a redirect, we extract the Location header and redirect the browser to that URL
                     const locationUrl = response.headers.get('Location');
                     window.location.href = locationUrl;
-                    return Promise.reject(new Error('Redirecting...')); // we don't want to process the promise chain further
-                } else if (response.status === 400) { // for 400 Bad Request status
+                    return Promise.reject(new Error('Redirecting...'));
+                } else if (response.status === 400) {
 
                     return Promise.reject(new Error('Missing query string parameter.'));
-                } else if (response.status === 404) { // for 404 Not Found status
+                } else if (response.status === 404) {
 
                     return Promise.reject(new Error('No page found for the given keyword.'));
                 } else {
@@ -135,14 +135,12 @@
                 }
             })
             .then(data => {
-                // This block is for processing a successful JSON response (status 200)
-                // 'data' should contain the URL information here, according to the endpoint's specification
+                // This  is for processing a successful JSON response (status 200)
                 console.log('Best match page URL:', data);
-                // Optionally do something with the data, like redirecting to the URL
                 window.location.href = data;
             })
             .catch(error => {
-                // Handle errors (like missing query parameter, no page found, or any other potential issues)
+                // Handle other errors
                 alert(error.message);
             });
     }
